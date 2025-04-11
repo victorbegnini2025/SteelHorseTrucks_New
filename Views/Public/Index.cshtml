@@ -1,0 +1,32 @@
+﻿@model IEnumerable<SteelHorseTrucks.Models.Trucks>
+
+@{
+    ViewData["Title"] = "Trucks";
+}
+
+<h2>Trucks available</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Model)</th>
+            <th>@Html.DisplayNameFor(model => model.Year)</th>
+            <th>@Html.DisplayNameFor(model => model.PayloadCapacity)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Warranty)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Model)</td>
+                <td>@Html.DisplayFor(modelItem => item.Year)</td>
+                <td>@Html.DisplayFor(modelItem => item.PayloadCapacity) kg</td>
+                <td>@Html.DisplayFor(modelItem => item.Price) CAD</td>
+                <td>@Html.DisplayFor(modelItem => item.Warranty) month(s)</td>
+
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Multi-Factor Authentication";
+}
+
+<h2 class="mt-4">Multi-Factor Authentication</h2>
+
+<p>A 6-digit verification code has been sent to your email. Please enter it below to proceed:</p>
+
+<form method="post">
+    <div class="form-group">
+        <label for="inputCode">Verification Code</label>
+        <input type="text" name="inputCode" id="inputCode" class="form-control" placeholder="Enter MFA Code" required />
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-success">Verify</button>
+    </div>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger mt-4">
+        @ViewBag.Error
+    </div>
+}
+
+@section Scripts {
+    <script>
+        // Only open MFA code display once
+        window.onload = function () {
+            const alreadyOpened = sessionStorage.getItem("MfaCodeOpened");
+
+            if (!alreadyOpened) {
+                window.open('/MFA/MFACode', '_blank', 'width=500,height=300');
+                sessionStorage.setItem("MfaCodeOpened", "true");
+            }
+        };
+
+        // Let the other tab know that MFA has been validated
+        document.querySelector('form').addEventListener('submit', function () {
+            localStorage.setItem("MfaValidated", "true");
+        });
+    </script>
+}

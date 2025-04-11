@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Your MFA Code";
+}
+
+<h2>Your MFA Code</h2>
+
+<p>This is your temporary verification code:</p>
+
+<div class="alert alert-success">
+    <strong>Code:</strong> @ViewBag.Code
+</div>
+
+<p style="margin-top: 20px; color: red;">
+    ⚠ Please return to the original tab to enter the code and complete the login.
+</p>
+
+<script>
+    window.addEventListener("storage", function (event) {
+        if (event.key === "MfaValidated" && event.newValue === "true") {
+            window.close();
+        }
+    });
+</script>

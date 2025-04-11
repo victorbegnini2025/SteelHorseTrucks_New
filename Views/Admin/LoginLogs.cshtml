@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SteelHorseTrucks.Models.LoginLog>
+
+@{
+    ViewData["Title"] = "Login Logs";
+}
+
+<h2>Login Logs</h2>
+
+<form method="get" action="/Admin/LoginLogs" class="row mb-4">
+    <div class="col-md-3">
+        <input type="text" name="email" class="form-control" placeholder="Email" value="@Context.Request.Query["email"]" />
+    </div>
+    <div class="col-md-3">
+        <input type="date" name="startDate" class="form-control" value="@Context.Request.Query["startDate"]" />
+    </div>
+    <div class="col-md-3">
+        <input type="date" name="endDate" class="form-control" value="@Context.Request.Query["endDate"]" />
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Success</th>
+            <th>Time</th>
+            <th>IP Address</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model)
+        {
+            <tr>
+                <td>@log.Email</td>
+                <td class="@(log.IsSuccess ? "text-success" : "text-danger")">
+                    @(log.IsSuccess ? "✔ Success" : "✖ Failed")
+                </td>
+                <td>@log.AttemptTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>@log.IPAddress</td>
+                <td>@log.Reason</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Admin" class="btn btn-secondary mt-3">Back to Admin Dashboard</a>
